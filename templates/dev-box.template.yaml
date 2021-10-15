@@ -16,6 +16,8 @@ Parameters:
     AllowedPattern: \S+
 
 Metadata:
+  QuickStartDocumentation:
+    EntrypointName: "Parameters for deploying into a new or existing VPC"
   AWS::CloudFormation::Interface:
     ParameterGroups:
     - Label:

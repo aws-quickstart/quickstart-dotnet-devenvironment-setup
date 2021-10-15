@@ -21,6 +21,6 @@ project:
   # reporting: true
 tests:
   default:
-    template: dev-box.yml
+    template: templates/dev-box.template.yaml
     # regions:
     # - us-east-1
