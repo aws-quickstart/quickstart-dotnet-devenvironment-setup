@@ -1,0 +1,340 @@
+AWSTemplateFormatVersion: 2010-09-09
+
+Parameters:
+  VPCId:
+    Type: String #AWS::EC2::VPC::Id doesn't allow 'null' values.
+    Default: ""
+  SubnetId:
+    Type: String #AWS::EC2::Subnet::Id doesn't allow 'null' values.
+    Default: ""
+  WindowsAMIId:
+    Type: 'AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>'
+    Default: '/aws/service/ami-windows-latest/Windows_Server-2019-English-Full-ContainersLatest'
+  KeyName:
+    Description: The keypair to use to remotely access the servers
+    Type: AWS::EC2::KeyPair::KeyName
+    AllowedPattern: \S+
+
+Metadata:
+  AWS::CloudFormation::Interface:
+    ParameterGroups:
+    - Label:
+        default: Remote Access
+      Parameters: [KeyName]
+    - Label:
+        default: Use the below to use an existing VPC, leave blank to create one for you
+      Parameters: [VPCId, SubnetId]
+    - Label:
+        default: Windows Image Selection - only change if you intend to use a specific image ID
+      Parameters: [WindowsAMIId]
+    
+Conditions:
+  CreateVPC:
+    !Equals [ !Ref VPCId, "" ]
+
+Resources:
+  VPC:
+    Condition: CreateVPC
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: '10.0.0.0/16'
+      EnableDnsHostnames: true
+      Tags:
+        - Key: Name
+          Value: !Sub ${AWS::StackName} VPC
+
+  InternetGW:
+    Condition: CreateVPC
+    Type: AWS::EC2::InternetGateway
+
+  # Route tables & routes (public/private)
+  InternetGWAttachment:
+    Condition: CreateVPC
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties: 
+      InternetGatewayId: !Ref InternetGW
+      VpcId: !Ref VPC
+
+  InternetRouteTable:
+    Condition: CreateVPC
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref VPC
+
+  InternetRoute:
+    Condition: CreateVPC
+    Type: AWS::EC2::Route
+    DependsOn: InternetGWAttachment
+    Properties:
+      RouteTableId: !Ref InternetRouteTable
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref InternetGW
+
+  # Subnets public/private
+  PublicSubnet:
+    Condition: CreateVPC
+    Type: AWS::EC2::Subnet
+    Properties:
+      CidrBlock: 10.0.0.0/24
+      MapPublicIpOnLaunch: false
+      VpcId: !Ref VPC
+
+  PublicRouteAssociation:
+    Condition: CreateVPC
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties: 
+      RouteTableId: !Ref InternetRouteTable
+      SubnetId: !Ref PublicSubnet
+
+  VSInstanceRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+        - Action: sts:AssumeRole
+          Effect: Allow
+          Principal:
+            Service: ec2.amazonaws.com
+          Sid: ''
+      Path: /
+      ManagedPolicyArns:
+      - arn:aws:iam::aws:policy/AdministratorAccess
+
+  VSInstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Roles: [ !Ref VSInstanceRole ]
+
+  RDPAccess:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow RDP connections from the outside world
+      VpcId: !If [CreateVPC, !Ref VPC, !Ref VPCId]
+      SecurityGroupIngress:
+      - IpProtocol: tcp
+        FromPort: 3389
+        ToPort: 3389
+        CidrIp: 0.0.0.0/0
+        Description: AllowRDP
+      SecurityGroupEgress:
+      - IpProtocol: tcp
+        FromPort: 0
+        ToPort: 65535
+        CidrIp: 0.0.0.0/0
+        Description: AllowAll
+
+  VSInstance:
+    Type: AWS::EC2::Instance
+    DependsOn:
+    - VSInstanceWaitHandle
+    - VSCodeWaitHandle
+    - PowershellWaitHandle
+    - RiderWaitHandle 
+    - PAWaitHandle
+    - A2CWaitHandle
+    - SCTWaitHandle
+    Properties:
+      InstanceType: m5.large
+      ImageId: !Ref WindowsAMIId
+      IamInstanceProfile: !Ref VSInstanceProfile
+      KeyName: !Ref KeyName
+      NetworkInterfaces: 
+      - AssociatePublicIpAddress: "true"
+        DeviceIndex: 0
+        GroupSet: [ !GetAtt RDPAccess.GroupId ]
+        SubnetId: !If [CreateVPC, !Ref PublicSubnet, !Ref SubnetId]
+      BlockDeviceMappings:
+      - DeviceName: /dev/sda1
+        Ebs:
+            VolumeSize: 80
+            VolumeType: gp3
+      Tags:
+      - Key: Name
+        Value: !Sub ${AWS::StackName}-DevBox
+      UserData:
+        Fn::Base64:
+          !Sub |
+            <powershell>
+            $VerbosePreference = "Continue"
+            try {
+              $logPath = Join-Path "C:\ProgramData\Amazon\EC2-Windows\Launch\Log" UserDataTranscript.log
+              Start-Transcript -Path $logPath -IncludeInvocationHeader
+              Set-ExecutionPolicy Bypass -Scope Process -Force;
+              Write-Verbose "Setting default region"
+              if (-not $(Test-Path C:\Users\Administrator\.aws)) { mkdir C:\Users\Administrator\.aws }
+              $configPath = Join-Path C:\Users\Administrator\.aws config
+              Add-Content $configPath "[default]"
+              Add-Content $configPath "region = ${AWS::Region}"
+              Add-Content $configPath "output = json"
+              Write-Verbose "Installing Chocolatey"
+              iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+              Import-Module "$env:ChocolateyInstall\helpers\chocolateyInstaller.psm1"
+              choco feature enable -n allowGlobalConfirmation
+              # Git
+              Write-Verbose "Installing Git"
+              choco install git
+              # Microsoft Edge
+              Write-Verbose "Installing Microsoft Edge Browser"
+              choco install microsoft-edge
+              # Corretto JDK
+              choco install correttojdk
+              Write-Verbose "Installing hosting support for ASP.NET 5.0"
+              choco install dotnet-5.0-windowshosting
+              Write-Verbose "Installing .NET 4.7.1/4.7.2 support."
+              choco install netfx-4.7.1-devpack
+              choco install netfx-4.7.2-devpack
+              # JetBrains Rider
+              Write-Verbose "Installing JetBrains Rider"
+              choco install jetbrains-rider
+              # Signal Rider Installation Completed
+              Invoke-WebRequest -Method PUT -Body $( ConvertTo-Json @{ "Status" = "SUCCESS"; "UniqueId"=[System.Guid]::NewGuid(); "Data"="Rider Installed." } ) -Uri "${ RiderWaitHandle }"
+              # AWS CLI
+              choco install awscli
+              # VS Code
+              Write-Verbose "Installing Visual Studio Code"
+              choco install vscode
+              # Signal VSCode Installation Completed
+              Invoke-WebRequest -Method PUT -Body $( ConvertTo-Json @{ "Status" = "SUCCESS"; "UniqueId"=[System.Guid]::NewGuid(); "Data"="VSCode Installed." } ) -Uri "${ VSCodeWaitHandle }"
+              # PowerShell Core
+              Write-Verbose "Installing latest version of PowerShell Core"
+              choco upgrade powershell-core
+              Write-Verbose "Creating PowerShell 7 shortcut"
+              $TargetFile = "`"${!env:ProgramFiles}\PowerShell\7\pwsh.exe`" -WorkingDirectory ~"
+              $ShortcutFile = "$env:Public\Desktop\PowerShell 7.lnk"
+              $WScriptShell = New-Object -ComObject WScript.Shell
+              $Shortcut = $WScriptShell.CreateShortcut($ShortcutFile)
+              $Shortcut.TargetPath = "${!env:ProgramFiles}\PowerShell\7\pwsh.exe"
+              $Shortcut.Description = "PowerShell 7"
+              $Shortcut.Save()
+              Write-Verbose "Refreshing environment variables"
+              refreshenv
+              # Helper scripts
+              Write-Verbose "Downloading helper scripts"
+              if (-not $(Test-Path C:\AWS)) { mkdir C:\AWS }
+              Read-S3Object -Region us-east-1 -BucketName us-east-1.andyhoppatamazon.com -Key images/Background-Dark.bmp -File C:\Temp\Background-Dark.bmp
+              # Install IIS & ASP.NET Support
+              Install-WindowsFeature -name Web-Server -IncludeManagementTools
+              # Install ASP.NET 4.6
+              Install-WindowsFeature Web-Asp-Net45              
+              # There is no PSDrive for HKU
+              reg.exe add "HKU\.DEFAULT\Control Panel" /v Wallpaper /t REG_SZ /d "C:\Temp\Background-Dark.bmp"
+              Read-S3Object -Region ${AWS::Region} -BucketName ${AWS::Region}.andyhoppatamazon.com -Key cloudformation/VSBox/UpdateProfileCredentials.ps1 -File C:\AWS\UpdateProfileCredentials.ps1
+              Read-S3Object -Region ${AWS::Region} -BucketName ${AWS::Region}.andyhoppatamazon.com -Key cloudformation/VSBox/SetupPwsh.ps1 -File C:\AWS\SetupPwsh.ps1
+              Write-Verbose "Installing AWS PowerShell Modules"
+              pwsh -File C:\AWS\SetupPwsh.ps1
+              Invoke-WebRequest -Method PUT -Body $( ConvertTo-Json @{ "Status" = "SUCCESS"; "UniqueId"=[System.Guid]::NewGuid(); "Data"="Downloaded PowerShell scripts." } ) -Uri "${ PowershellWaitHandle }"
+              # Install AWS Porting Assistant for .NET
+              Invoke-WebRequest -Method GET -Uri https://s3-us-west-2.amazonaws.com/aws.portingassistant.dotnet.download/latest/windows/Porting-Assistant-Dotnet.exe -OutFile C:\AWS\Porting-Assistant-Dotnet.exe
+              Start-Process -Wait -FilePath 'C:\AWS\Porting-Assistant-Dotnet.exe' -ArgumentList "/S"
+              # Signal PA Installation Completed
+              Invoke-WebRequest -Method PUT -Body $( ConvertTo-Json @{ "Status" = "SUCCESS"; "UniqueId"=[System.Guid]::NewGuid(); "Data"="VSCode Installed." } ) -Uri "${ PAWaitHandle }"
+              # Install App2Container
+              Invoke-WebRequest -Method GET -Uri https://app2container-release-us-east-1.s3.us-east-1.amazonaws.com/latest/windows/AWSApp2Container-installer-windows.zip -OutFile C:\AWS\AWSApp2Container-installer-windows.zip
+              Expand-Archive -Path C:\AWS\AWSApp2Container-installer-windows.zip -DestinationPath C:\AWS\App2Container\
+              C:\AWS\App2Container\install.ps1 -acceptEula $true
+              # Signal A2C Installation Completed
+              Invoke-WebRequest -Method PUT -Body $( ConvertTo-Json @{ "Status" = "SUCCESS"; "UniqueId"=[System.Guid]::NewGuid(); "Data"="VSCode Installed." } ) -Uri "${ A2CWaitHandle }"
+              # Install the Schema Conversion Tool
+              Invoke-WebRequest -Method GET -Uri https://s3.amazonaws.com/publicsctdownload/Windows/aws-schema-conversion-tool-1.0.latest.zip -OutFile C:\AWS\aws-schema-conversion-tool-1.0.latest.zip
+              Expand-Archive -Path C:\AWS\aws-schema-conversion-tool-1.0.latest.zip -DestinationPath C:\AWS\SCT\
+              Start-Process -Wait -FilePath msiexec.exe -ArgumentList "/i`"$(gci C:\AWS\SCT\*.msi|select -First 1 -ExpandProperty FullName)`"","/q","/lvx","SCT.log"
+              # Signal SCT Installation Completed
+              Invoke-WebRequest -Method PUT -Body $( ConvertTo-Json @{ "Status" = "SUCCESS"; "UniqueId"=[System.Guid]::NewGuid(); "Data"="VSCode Installed." } ) -Uri "${ SCTWaitHandle }"
+              # AWS Credentials
+              Write-Verbose "Creating task to update credentials from EC2 profile"
+              schtasks.exe /create /tn "Refresh AWS Credentials" /sc ONEVENT /ec "Microsoft-Windows-TerminalServices-LocalSessionManager/Operational" /MO "*[System[Provider[@Name='Microsoft-Windows-TerminalServices-LocalSessionManager'] and EventID=25]]" /tr "powershell -WindowStyle Hidden -file C:\AWS\UpdateProfileCredentials.ps1"
+              $task = Get-ScheduledTask -TaskPath "\" -TaskName "Refresh AWS Credentials"
+              $triggers = $($( Get-ScheduledTask -TaskPath "\" -TaskName "Refresh AWS Credentials" ).Triggers + @( $(New-ScheduledTaskTrigger -AtLogOn)))
+              Set-ScheduledTask -TaskPath "\" -TaskName "Refresh AWS Credentials" -Trigger $triggers
+              Write-Verbose "Signaling completion to WaitHandle"
+              Invoke-WebRequest -Method PUT -Body $( ConvertTo-Json @{ "Status" = "SUCCESS"; "UniqueId"=[System.Guid]::NewGuid(); "Data"="Instance initialized successfully." } ) -Uri "${ VSInstanceWaitHandle }"
+              # We need to restart after installing IIS
+              Restart-Computer
+            }
+            catch {
+              $itemName = $_.Exception.ItemName;
+              $errorMessage = $_.Exception.Message;
+              Write-Host "ERROR: $itemName - $errorMessage"
+              Invoke-WebRequest -Method PUT -Body $( ConvertTo-Json @{ "Status" = "FAILURE"; "UniqueId"=[System.Guid]::NewGuid(); "Data"=$errorMessage } ) -Uri "${ VSInstanceWaitHandle }"
+            }
+            </powershell>
+
+  VSInstanceWaitHandle:
+    Type: AWS::CloudFormation::WaitConditionHandle
+
+  PowershellWaitHandle:
+    Type: AWS::CloudFormation::WaitConditionHandle
+
+  VSCodeWaitHandle:
+    Type: AWS::CloudFormation::WaitConditionHandle
+
+  RiderWaitHandle:
+    Type: AWS::CloudFormation::WaitConditionHandle
+
+  PAWaitHandle:
+    Type: AWS::CloudFormation::WaitConditionHandle
+
+  A2CWaitHandle:
+    Type: AWS::CloudFormation::WaitConditionHandle
+
+  SCTWaitHandle:
+    Type: AWS::CloudFormation::WaitConditionHandle
+
+  InstanceWaitCondition: 
+    Type: AWS::CloudFormation::WaitCondition
+    Properties: 
+      Handle: !Ref VSInstanceWaitHandle
+      Timeout: 3600
+      Count: 1
+
+  PSWaitCondition: 
+    Type: AWS::CloudFormation::WaitCondition
+    Properties: 
+      Handle: !Ref PowershellWaitHandle
+      Timeout: 3600
+      Count: 1
+
+  VSCodeWaitCondition: 
+    Type: AWS::CloudFormation::WaitCondition
+    Properties: 
+      Handle: !Ref VSCodeWaitHandle
+      Timeout: 3600
+      Count: 1
+
+  RiderWaitCondition: 
+    Type: AWS::CloudFormation::WaitCondition
+    Properties: 
+      Handle: !Ref RiderWaitHandle
+      Timeout: 3600
+      Count: 1
+
+  PAWaitCondition: 
+    Type: AWS::CloudFormation::WaitCondition
+    Properties: 
+      Handle: !Ref PAWaitHandle
+      Timeout: 3600
+      Count: 1
+      
+  A2CWaitCondition: 
+    Type: AWS::CloudFormation::WaitCondition
+    Properties: 
+      Handle: !Ref A2CWaitHandle
+      Timeout: 3600
+      Count: 1
+      
+  SCTWaitCondition: 
+    Type: AWS::CloudFormation::WaitCondition
+    Properties: 
+      Handle: !Ref SCTWaitHandle
+      Timeout: 3600
+      Count: 1
+
+Outputs:
+  VSInstanceId:
+    Description: VS Instance ID
+    Value: !Ref VSInstance
+
+  VSInstanceAddress:
+    Description: VS Instance DNS Name
+    Value: !GetAtt VSInstance.PublicDnsName
