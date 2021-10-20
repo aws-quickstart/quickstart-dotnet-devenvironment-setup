@@ -5,20 +5,27 @@ Description: >-
 
 Parameters:
   VPCId:
+    Description: VPC ID, leave blank to create a new VPC
     Type: String #AWS::EC2::VPC::Id doesn't allow 'null' values.
     Default: ""
   SubnetId:
+    Description: Subnet ID, leave blank if creating a new VPC
     Type: String #AWS::EC2::Subnet::Id doesn't allow 'null' values.
     Default: ""
   WindowsAMIId:
+    Description: Windows EC2 AMI AD
     Type: 'AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>'
     Default: '/aws/service/ami-windows-latest/Windows_Server-2019-English-Full-ContainersLatest'
   KeyName:
-    Description: The keypair to use to remotely access the servers
+    Description: The EC2 key pair to use to remotely access the servers
     Type: AWS::EC2::KeyPair::KeyName
     AllowedPattern: \S+
 
 Metadata:
+  cfn-lint:
+    config:
+      ignore_checks:
+        - W9006
   QuickStartDocumentation:
     EntrypointName: "Parameters for deploying into a new or existing VPC"
   AWS::CloudFormation::Interface:
@@ -32,6 +39,15 @@ Metadata:
     - Label:
         default: Windows Image Selection - only change if you intend to use a specific image ID
       Parameters: [WindowsAMIId]
+    ParameterLabels:
+      KeyName:
+        default: EC2 key pair name
+      VPCId:
+        default: VPC ID
+      SubnetId:
+        default: Subnet ID
+      WindowsAMIId:
+        default: Windows EC2 AMI ID
     
 Conditions:
   CreateVPC:
@@ -104,7 +120,7 @@ Resources:
           Sid: ''
       Path: /
       ManagedPolicyArns:
-      - arn:aws:iam::aws:policy/AdministratorAccess
+      - !Sub 'arn:${AWS::Partition}:iam::aws:policy/AdministratorAccess'
 
   VSInstanceProfile:
     Type: AWS::IAM::InstanceProfile
@@ -145,8 +161,8 @@ Resources:
       IamInstanceProfile: !Ref VSInstanceProfile
       KeyName: !Ref KeyName
       NetworkInterfaces: 
-      - AssociatePublicIpAddress: "true"
-        DeviceIndex: 0
+      - AssociatePublicIpAddress: true
+        DeviceIndex: '0'
         GroupSet: [ !GetAtt RDPAccess.GroupId ]
         SubnetId: !If [CreateVPC, !Ref PublicSubnet, !Ref SubnetId]
       BlockDeviceMappings:
@@ -290,49 +306,49 @@ Resources:
     Type: AWS::CloudFormation::WaitCondition
     Properties: 
       Handle: !Ref VSInstanceWaitHandle
-      Timeout: 3600
+      Timeout: '3600'
       Count: 1
 
   PSWaitCondition: 
     Type: AWS::CloudFormation::WaitCondition
     Properties: 
       Handle: !Ref PowershellWaitHandle
-      Timeout: 3600
+      Timeout: '3600'
       Count: 1
 
   VSCodeWaitCondition: 
     Type: AWS::CloudFormation::WaitCondition
     Properties: 
       Handle: !Ref VSCodeWaitHandle
-      Timeout: 3600
+      Timeout: '3600'
       Count: 1
 
   RiderWaitCondition: 
     Type: AWS::CloudFormation::WaitCondition
     Properties: 
       Handle: !Ref RiderWaitHandle
-      Timeout: 3600
+      Timeout: '3600'
       Count: 1
 
   PAWaitCondition: 
     Type: AWS::CloudFormation::WaitCondition
     Properties: 
       Handle: !Ref PAWaitHandle
-      Timeout: 3600
+      Timeout: '3600'
       Count: 1
       
   A2CWaitCondition: 
     Type: AWS::CloudFormation::WaitCondition
     Properties: 
       Handle: !Ref A2CWaitHandle
-      Timeout: 3600
+      Timeout: '3600'
       Count: 1
       
   SCTWaitCondition: 
     Type: AWS::CloudFormation::WaitCondition
     Properties: 
       Handle: !Ref SCTWaitHandle
-      Timeout: 3600
+      Timeout: '3600'
       Count: 1
 
 Outputs:
