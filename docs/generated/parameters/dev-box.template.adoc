@@ -1,0 +1,20 @@
+
+.Remote Access
+[width="100%",cols="16%,11%,73%",options="header",]
+|===
+|Parameter label (name) |Default value|Description|EC2 key pair name
+(`KeyName`)|`**__Requires input__**`|The EC2 key pair to use to remotely access the servers
+|===
+.Use the below to use an existing VPC, leave blank to create one for you
+[width="100%",cols="16%,11%,73%",options="header",]
+|===
+|Parameter label (name) |Default value|Description|VPC ID
+(`VPCId`)|`**__Blank string__**`|VPC ID, leave blank to create a new VPC|Subnet ID
+(`SubnetId`)|`**__Blank string__**`|Subnet ID, leave blank if creating a new VPC
+|===
+.Windows Image Selection - only change if you intend to use a specific image ID
+[width="100%",cols="16%,11%,73%",options="header",]
+|===
+|Parameter label (name) |Default value|Description|Windows EC2 AMI ID
+(`WindowsAMIId`)|`/aws/service/ami-windows-latest/Windows_Server-2019-English-Full-ContainersLatest`|Windows EC2 AMI AD
+|===

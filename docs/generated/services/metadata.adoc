@@ -1,1 +1,18 @@
-// placeholder
+
+:template_aws_cloudformation_waitcondition:
+:template_aws_cloudformation_waitconditionhandle:
+:template_aws_ec2_instance:
+:template_aws_ec2_internetgateway:
+:template_aws_ec2_route:
+:template_aws_ec2_routetable:
+:template_aws_ec2_securitygroup:
+:template_aws_ec2_subnet:
+:template_aws_ec2_subnetroutetableassociation:
+:template_aws_ec2_vpc:
+:template_aws_ec2_vpcgatewayattachment:
+:template_aws_iam_instanceprofile:
+:template_aws_iam_role:
+:template_cloudformation:
+:template_deterministic_ec2_instances:
+:template_ec2:
+:template_iam:
