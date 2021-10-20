@@ -1,5 +1,8 @@
 AWSTemplateFormatVersion: 2010-09-09
 
+Description: >-
+  This template deploys a .NET development environment (qs-1sctmf6e2)
+
 Parameters:
   VPCId:
     Type: String #AWS::EC2::VPC::Id doesn't allow 'null' values.
