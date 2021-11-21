@@ -4,4 +4,4 @@
 
 This guide provides instructions for deploying the {partner-product-short-name} Quick Start reference architecture on the AWS Cloud.
 
-This Quick Start is for users who <target audience and usage scenario>
+This Quick Start is for users who would like to provision a development machine for building and maintaining .NET and .NET Framework applications in their AWS environment. This Quick Start uses the ability to automatically install software as part of the Elastic Compute Cloud (EC2) launch process to eliminate the many manual steps necessary to install the .NET SDK and development tools needed to write .NET code and provides a way to quickly build a standardized development environment.
