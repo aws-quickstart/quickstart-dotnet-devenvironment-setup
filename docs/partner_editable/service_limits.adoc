@@ -3,12 +3,10 @@
 |Resource |This deployment uses
 
 // Space needed to maintain table headers
-|VPCs |<n>
-|Elastic IP addresses |<n>
-|Security groups |<n>
-|AWS Identity and Access Management (IAM) roles |<n>
-|Auto Scaling groups |<n>
-|Application Load Balancers |<n>
-|Network Load Balancers |<n>
-|<type> instances |<n>
+|VPCs |1*
+|Subnets |1*
+|Security groups |1
+|AWS Identity and Access Management (IAM) roles |1
+|EC2 instances |1
 |===
+[.small]#* When launching the Quick Start into an existing VPC by selecting values for the VPC and subnet IDs, the Quick Start skips the creation of components marked by asterisks.#

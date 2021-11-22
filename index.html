@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.15">
-<title>Example Product Name on the AWS Cloud</title>
+<meta name="generator" content="Asciidoctor 2.0.16">
+<title>.NET Development Environment on the AWS Cloud</title>
 <style>
 
 /* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -825,7 +825,7 @@ p.footer-text a{color:#d7d8d8}
 <div id="toctitle"></div>
 <ul class="sectlevel1">
 <li><a href="#_overview">Overview</a></li>
-<li><a href="#_example_product_name_on_aws">Example Product Name on AWS</a></li>
+<li><a href="#_net_development_environment_on_aws">.NET Development Environment on AWS</a></li>
 <li><a href="#_aws_costs">AWS costs</a></li>
 <li><a href="#_software_licenses">Software licenses</a></li>
 <li><a href="#_architecture">Architecture</a></li>
@@ -842,9 +842,7 @@ p.footer-text a{color:#d7d8d8}
 <li><a href="#_launch_the_quick_start">Launch the Quick Start</a></li>
 </ul>
 </li>
-<li><a href="#_test_the_deployment">Test the deployment</a></li>
 <li><a href="#_post_deployment_steps">Post-deployment steps</a></li>
-<li><a href="#_best_practices_for_using_example_product_name_on_aws">Best practices for using Example Product Name on AWS</a></li>
 <li><a href="#_security">Security</a></li>
 <li><a href="#_other_useful_information">Other useful information</a></li>
 <li><a href="#_faq">FAQ</a></li>
@@ -865,16 +863,17 @@ p.footer-text a{color:#d7d8d8}
 <div id="content">
 <div id="preamble">
 <div class="sectionbody">
-<h2 id="_example_product_name_on_the_aws_cloud" class="discrete text-center">Example Product Name on the AWS Cloud</h2>
+<h2 id="_net_development_environment_on_the_aws_cloud" class="discrete text-center">.NET Development Environment on the AWS Cloud</h2>
 <h2 id="_quick_start_reference_deployment" class="discrete text-left text-center">Quick Start Reference Deployment</h2>
 <div class="imageblock text-center">
 <div class="content">
-<img src="https://aws-quickstart.s3.amazonaws.com/quickstart-documentation-base/docs/boilerplate/.images/aws-quickstart-graphic.png" alt="QS" width="80" height="80">
+<img src="https://aws-quickstart.s3.amazonaws.com/quickstart-dotnet-environment-setup/docs/boilerplate/.images/aws-quickstart-graphic.png" alt="QS" width="80" height="80">
 </div>
 </div>
 <div class="paragraph text-center">
-<p><strong>Month of launch or significant update (spelled out) Year</strong><br>
-<em>Toni Jones, AWS Integration &amp; Automation team</em></p>
+<p><strong>11 2021</strong><br>
+<em>Andy Hopper, AWS Microsoft Specialist SA Team</em><br>
+<em>{quickstart-contributors}</em></p>
 </div>
 <div class="admonitionblock tip text-left">
 <table>
@@ -883,14 +882,14 @@ p.footer-text a{color:#d7d8d8}
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-Visit our <a href="https://github.com/aws-quickstart/quickstart-documentation-base" target="_blank" rel="noopener">GitHub repository</a> for source files and to post feedback,
+Visit our <a href="https://github.com/aws-quickstart/quickstart-dotnet-environment-setup" target="_blank" rel="noopener">GitHub repository</a> for source files and to post feedback,
 report bugs, or submit feature ideas for this Quick Start.
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph text-left">
-<p>This Quick Start was created by Example Company Name, Ltd. in collaboration with Amazon Web Services (AWS). <a href="http://aws.amazon.com/quickstart/" target="_blank" rel="noopener">Quick Starts</a> are automated reference deployments that use AWS CloudFormation templates to deploy key technologies on AWS, following AWS best practices.</p>
+<p>This Quick Start was created by Amazon Web Services (AWS). <a href="http://aws.amazon.com/quickstart/" target="_blank" rel="noopener">Quick Starts</a> are automated reference deployments that use AWS CloudFormation templates to deploy key technologies on AWS, following AWS best practices.</p>
 </div>
 </div>
 </div>
@@ -898,30 +897,18 @@ report bugs, or submit feature ideas for this Quick Start.
 <h2 id="_overview">Overview</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This guide provides instructions for deploying the Example Product Name Quick Start reference architecture on the AWS Cloud.</p>
+<p>This guide provides instructions for deploying the .NET Development Environment Quick Start reference architecture on the AWS Cloud.</p>
 </div>
 <div class="paragraph">
-<p>This Quick Start is for users who &lt;target audience and usage scenario&gt;</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-Amazon may share user-deployment information with the AWS Partner that collaborated with AWS on the Quick Start.
-</td>
-</tr>
-</table>
+<p>This Quick Start is for users who would like to provision a development machine for building and maintaining .NET and .NET Framework applications in their AWS environment. This Quick Start uses the ability to automatically install software as part of the Elastic Compute Cloud (EC2) launch process to eliminate the many manual steps necessary to install the .NET SDK and development tools needed to write .NET code and provides a way to quickly build a standardized development environment.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_example_product_name_on_aws">Example Product Name on AWS</h2>
+<h2 id="_net_development_environment_on_aws">.NET Development Environment on AWS</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>&lt;Describe how the software works on AWS.&gt;</p>
+<p>This Quick Start uses AWS CloudFormation and the ability to automatically install software as part of the Amazon Elastic Compute Cloud (EC2) launch process to configure a development machine. This solution eliminates the many manual steps necessary to install the .NET SDK and development tools needed to write .NET code. This Quick Start can be used as a reference architecture to provide a standardized development environment.</p>
 </div>
 </div>
 </div>
@@ -956,19 +943,7 @@ After you deploy the Quick Start, create <a href="https://docs.aws.amazon.com/aw
 <h2 id="_software_licenses">Software licenses</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><em>&lt;Example 1&gt;No licenses are required to deploy this Quick Start. All AWS service resources consumed during the launch of the Quick Start incur AWS service usage costs.</em></p>
-</div>
-<div class="paragraph">
-<p><em>&lt;Example 2&gt;Some configurations of the Example Product Name Quick Start involve the use of third-party software. You are responsible for obtaining a license directly from the software vendor.</em></p>
-</div>
-<div class="paragraph">
-<p><em>&lt;Example 3&gt;This Quick Start requires a license for Example Product Name. To use the Quick Start in your production environment, sign up for a license at &lt;link&gt;. When you launch the Quick Start, place the license key in an S3 bucket and specify its location.</em></p>
-</div>
-<div class="paragraph">
-<p><em>If you don’t have a license, the Quick Start deploys with a trial license. The trial license gives you &lt;n&gt; days of free usage in a non-production environment. After this time, you can upgrade to a production license by following the instructions at &lt;link&gt;.</em></p>
-</div>
-<div class="paragraph">
-<p><em>&lt;AMI information&gt;The Quick Start requires a subscription to the Amazon Machine Image (AMI) for Example Product Name, which is available from <a href="https://aws.amazon.com/marketplace/" target="_blank" rel="noopener">AWS Marketplace</a>. Additional pricing, terms, and conditions may apply. For instructions, see <a href="#step-2.-subscribe-to-the-software-ami">step 2</a> in the deployment section.</em></p>
+<p>This Quick Start includes a trial license for JetBrains Rider. To use the Quick Start in your production environment, sign up for a license at <a href="https://www.jetbrains.com/rider/buy/" class="bare">https://www.jetbrains.com/rider/buy/</a>. After you launch the Quick Start, you may activate your license following the instructions at <a href="https://www.jetbrains.com/help/rider/Register.html" class="bare">https://www.jetbrains.com/help/rider/Register.html</a>.</p>
 </div>
 </div>
 </div>
@@ -976,15 +951,13 @@ After you deploy the Quick Start, create <a href="https://docs.aws.amazon.com/aw
 <h2 id="_architecture">Architecture</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Deploying this Quick Start for a new virtual private cloud (VPC) with
-default parameters builds the following Example Product Name environment in the
-AWS Cloud.</p>
+<p>Deploying this Quick Start for a development environment with default parameter values and an EC2 Keypair builds the following .NET Development Environment environment in the AWS Cloud.</p>
 </div>
 <div id="architecture1" class="imageblock">
 <div class="content">
 <img src="images/architecture_diagram.png" alt="Architecture">
 </div>
-<div class="title">Figure 1. Quick Start architecture for Example Product Name on AWS</div>
+<div class="title">Figure 1. Quick Start architecture for .NET Development Environment on AWS</div>
 </div>
 <div class="paragraph">
 <p>As shown in <a href="#architecture1">Figure 1</a>, the Quick Start sets up the following:</p>
@@ -992,10 +965,7 @@ AWS Cloud.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>A highly available architecture that spans two Availability Zones.*</p>
-</li>
-<li>
-<p>A VPC configured with public and private subnets, according to AWS
+<p>A VPC configured with a public subnet, according to AWS
 best practices, to provide you with your own virtual network on AWS.*</p>
 </li>
 <li>
@@ -1003,36 +973,37 @@ best practices, to provide you with your own virtual network on AWS.*</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Managed network address translation (NAT) gateways to allow outbound
-internet access for resources in the private subnets.*</p>
-</li>
-<li>
-<p>A Linux bastion host in an Auto Scaling group to allow inbound Secure
-Shell (SSH) access to EC2 instances in public and private subnets.*</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>In the private subnets:</p>
+<p>An EC2 Windows instance configured with commonly-used development tools for .NET applications:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>&lt;item&gt;.</p>
+<p>Git for Windows</p>
 </li>
 <li>
-<p>&lt;item&gt;.</p>
+<p>Visual Studio Code</p>
+</li>
+<li>
+<p>JetBrains Rider</p>
+</li>
+<li>
+<p>The Chocolatey package management tool</p>
+</li>
+<li>
+<p>The AWS Command-Line Interface (CLI)</p>
+</li>
+<li>
+<p>Powershell Core</p>
 </li>
 </ul>
 </div>
 </li>
-<li>
-<p>&lt;describe any additional components&gt;.</p>
+</ul>
+</div>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p><span class="small">* The template that deploys the Quick Start into an existing VPC skips the components marked by asterisks and prompts you for your existing VPC configuration.</span></p>
+<p><span class="small">* When launching the Quick Start into an existing VPC by selecting values for the VPC and subnet IDs, the Quick Start skips the creation of components marked by asterisks.</span></p>
 </div>
 </div>
 </div>
@@ -1048,7 +1019,7 @@ and <a href="https://aws.amazon.com/training/" target="_blank" rel="noopener">AW
 deploy, and operate your infrastructure and applications on the AWS Cloud.</p>
 </div>
 <div class="paragraph">
-<p>This Quick Start also assumes familiarity with &lt;knowledge expectations specific to this Quick Start&gt;.</p>
+<p>This Quick Start also assumes familiarity with the process for establishing Remote Desktop Protocol (RDP) connections to EC2 instances as described in the <a href="https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/connecting_to_windows_instance.html">AWS Documentation</a>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -1084,38 +1055,29 @@ deploy, and operate your infrastructure and applications on the AWS Cloud.</p>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">VPCs</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;n&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1*</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Elastic IP addresses</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;n&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Subnets</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1*</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Security groups</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;n&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">AWS Identity and Access Management (IAM) roles</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;n&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Auto Scaling groups</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;n&gt;</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Application Load Balancers</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;n&gt;</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Network Load Balancers</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;n&gt;</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;type&gt; instances</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;n&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">EC2 instances</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
 </tr>
 </tbody>
 </table>
+<div class="paragraph">
+<p><span class="small">* When launching the Quick Start into an existing VPC by selecting values for the VPC and subnet IDs, the Quick Start skips the creation of components marked by asterisks.</span></p>
+</div>
 </div>
 <div class="sect3">
 <h4 id="_supported_aws_regions">Supported AWS Regions</h4>
@@ -1161,15 +1123,15 @@ Certain Regions are available on an opt-in basis. For more information, see <a h
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Deploy Example Product Name into a new VPC</strong>. This option builds a new AWS environment consisting of the VPC, subnets, NAT gateways, security groups, bastion hosts, and other infrastructure components. It then deploys Example Product Name into this new VPC.</p>
+<p><strong>Deploy .NET Development Environment into a new VPC</strong>. This option builds a new AWS environment consisting of a new VPC, subnets, security groups and other infrastructure components. It then deploys .NET Development Environment into this new VPC.</p>
 </li>
 <li>
-<p><strong>Deploy Example Product Name into an existing VPC</strong>. This option provisions Example Product Name in your existing AWS infrastructure.</p>
+<p><strong>Deploy .NET Development Environment into an existing VPC</strong>. This option provisions .NET Development Environment in your existing AWS infrastructure.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>The Quick Start provides separate templates for these options. It also lets you configure Classless Inter-Domain Routing (CIDR) blocks, instance types, and Example Product Name settings, as discussed later in this guide.</p>
+<p>The Quick Start provides a template that will, by default, deploy a new VPC. By selecting an existing VPC and subnet IDs, this template will deploy into the selected VPC and subnet.</p>
 </div>
 </div>
 <div class="sect3">
@@ -1179,12 +1141,10 @@ Certain Regions are available on an opt-in basis. For more information, see <a h
 </div>
 </div>
 <div class="sect3">
-<h4 id="_prepare_your_example_company_name_ltd_account">Prepare your Example Company Name, Ltd. account</h4>
-
-</div>
-<div class="sect3">
 <h4 id="_prepare_for_the_deployment">Prepare for the deployment</h4>
-
+<div class="paragraph">
+<p>Ensure that you have created an Amazon EC2 key pair in the region you intend to launch the QuickStart and that you have access to the private key material for that key. If you have not yet created a key or do not have access to the private key, you can create a new key following the instructions provided in the <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#having-ec2-create-your-key-pair">AWS Documentation</a>.</p>
+</div>
 </div>
 </div>
 </div>
@@ -1214,18 +1174,18 @@ Certain Regions are available on an opt-in basis. For more information, see <a h
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-If you deploy Example Product Name into an existing VPC, ensure that your VPC has two private subnets in different Availability Zones for the workload instances and that the subnets are not shared. This Quick Start does not support <a href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-sharing.html" target="_blank" rel="noopener">shared subnets</a>. The subnets require <a href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html" target="_blank" rel="noopener">NAT gateways</a> in their route tables to allow the instances to download packages and software without exposing the instances to the internet. Also ensure that the domain name in the DHCP options is configured, as explained in <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_DHCP_Options.html" target="_blank" rel="noopener">DHCP options sets</a>. Provide your VPC settings when you launch the Quick Start.
+If you deploy .NET Development Environment into an existing VPC, ensure that your VPC has a public subnet for hosting the development tools instance. Provide your VPC settings when you launch the Quick Start.
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>Each deployment takes about 15 minutes / 60 minutes / 1.5 hours to complete.</p>
+<p>Each deployment takes about 20 minutes to complete.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Sign in to your AWS account, and choose one of the following options to launch the AWS CloudFormation template. For help with choosing an option, see <a href="#_deployment_options">Deployment options</a> earlier in this guide.</p>
+<p>Sign in to your AWS account, and open the below hyperlink to launch the AWS CloudFormation template. For help with choosing deployment options, see <a href="#_deployment_options">Deployment options</a> earlier in this guide.</p>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 75%;">
@@ -1233,11 +1193,7 @@ If you deploy Example Product Name into an existing VPC, ensure that your VPC ha
 </colgroup>
 <tbody>
 <tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="http://qs_launch_permalink" target="_blank" rel="noopener">Deploy Example Product Name into a new VPC on AWS</a></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="http://qs_template_permalink" target="_blank" rel="noopener">View template</a></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="http://qs_launch_permalink" target="_blank" rel="noopener">Deploy Example Product Name into an existing VPC on AWS</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="http://qs_launch_permalink" target="_blank" rel="noopener">Deploy .NET Development Environment into your AWS environment</a></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><a href="http://qs_template_permalink" target="_blank" rel="noopener">View template</a></p></td>
 </tr>
 </tbody>
@@ -1262,7 +1218,7 @@ If you deploy Example Product Name into an existing VPC, ensure that your VPC ha
 <p>Choose <strong>Create stack</strong> to deploy the stack.</p>
 </li>
 <li>
-<p>Monitor the status of the stack. When the status is <strong>CREATE_COMPLETE</strong>, the Example Product Name deployment is ready.</p>
+<p>Monitor the status of the stack. When the status is <strong>CREATE_COMPLETE</strong>, the .NET Development Environment deployment is ready.</p>
 </li>
 <li>
 <p>To view the created resources, see the values displayed in the <strong>Outputs</strong> tab for the stack.</p>
@@ -1273,22 +1229,10 @@ If you deploy Example Product Name into an existing VPC, ensure that your VPC ha
 </div>
 </div>
 <div class="sect1">
-<h2 id="_test_the_deployment">Test the deployment</h2>
-<div class="sectionbody">
-
-</div>
-</div>
-<div class="sect1">
 <h2 id="_post_deployment_steps">Post-deployment steps</h2>
 <div class="sectionbody">
-
-</div>
-</div>
-<div class="sect1">
-<h2 id="_best_practices_for_using_example_product_name_on_aws">Best practices for using Example Product Name on AWS</h2>
-<div class="sectionbody">
 <div class="paragraph">
-<p><em>Add any best practices for using the software.</em></p>
+<p>This Quick Start creates an EC2 instance that uses a trial license of JetBrains Rider. If you determnine that you would like to obtain a license or apply an existing license, you will need to follow the instructions on JetBrains' site for <a href="https://www.jetbrains.com/rider/buy">purchasing a license</a> or <a href="https://www.jetbrains.com/help/rider/Register.html">registering an existing license</a>.</p>
 </div>
 </div>
 </div>
@@ -1296,7 +1240,7 @@ If you deploy Example Product Name into an existing VPC, ensure that your VPC ha
 <h2 id="_security">Security</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><em>Add any security-related information.</em></p>
+<p>This Quick Start deploys an EC2 instance into your AWS environment and configures an EC2 instance with a password that has been encrypted with an EC2 key pair. If you select the deployment option that deploys your EC2 instance to a VPC that is created for you, this instance will be placed into a public subnet to enable access via Remote Desktop Protocol. If this option is selected, it is recommended that you take the additional step of modifying the security group to restrict access to only networks you control by following <a href="https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/ec2-security-groups.html">these steps</a>.</p>
 </div>
 </div>
 </div>
@@ -1304,7 +1248,7 @@ If you deploy Example Product Name into an existing VPC, ensure that your VPC ha
 <h2 id="_other_useful_information">Other useful information</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><em>Add any other details that will help the customer use the software on AWS.</em></p>
+<p>Although this topic is beyond the scope of this Quick Start, one of the advantages of using an EC2 instance to host development tools is the ability to use the <a href="https://aws.amazon.com/premiumsupport/knowledge-center/stop-start-instance-scheduler/">AWS Instance Scheduler solution</a> to automatically shut down the instance outside of office hours.</p>
 </div>
 </div>
 </div>
@@ -1456,7 +1400,7 @@ Unless you are customizing the Quick Start templates for your own deployment pro
 <h2 id="_send_us_feedback">Send us feedback</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>To post feedback, submit feature ideas, or report bugs, use the <strong>Issues</strong> section of the <a href="https://github.com/aws-quickstart/quickstart-documentation-base" target="_blank" rel="noopener">GitHub repository</a> for this Quick Start. To submit code, see the <a href="https://aws-quickstart.github.io/" target="_blank" rel="noopener">Quick Start Contributor’s Guide</a>.</p>
+<p>To post feedback, submit feature ideas, or report bugs, use the <strong>Issues</strong> section of the <a href="https://github.com/aws-quickstart/quickstart-dotnet-environment-setup" target="_blank" rel="noopener">GitHub repository</a> for this Quick Start. To submit code, see the <a href="https://aws-quickstart.github.io/" target="_blank" rel="noopener">Quick Start Contributor’s Guide</a>.</p>
 </div>
 </div>
 </div>
@@ -1472,7 +1416,7 @@ Unless you are customizing the Quick Start templates for your own deployment pro
 <h2 id="_github_repository">GitHub repository</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Visit our <a href="https://github.com/aws-quickstart/quickstart-documentation-base" target="_blank" rel="noopener">GitHub repository</a> to download
+<p>Visit our <a href="https://github.com/aws-quickstart/quickstart-dotnet-environment-setup" target="_blank" rel="noopener">GitHub repository</a> to download
 the templates and scripts for this Quick Start, to post your comments,
 and to share your customizations with others.</p>
 </div>
@@ -1493,15 +1437,15 @@ and to share your customizations with others.</p>
 </div>
 <p class="footer-text">
 <!-- We can use document attributes: -->
-<!-- Generated with Asciidoctor v2.0.15. -->
-<a href="https://aws.amazon.com/privacy/">Privacy</a> | <a href="https://aws.amazon.com/terms/">Site terms</a> | &copy; 2021, Amazon Web Services, Inc. or its affiliates and Example Company Name, Ltd.. All rights reserved.
+<!-- Generated with Asciidoctor v2.0.16. -->
+<a href="https://aws.amazon.com/privacy/">Privacy</a> | <a href="https://aws.amazon.com/terms/">Site terms</a> | &copy; 2021, Amazon Web Services, Inc. or its affiliates. All rights reserved.
 </p>
 </body>
 </html>
 <!--
 repo commit:
-5bf5636dc6a444a2125b50819acbd013a9be31e5
+2063bc8c20c728784e2661f5fbb4f7550cf40145
 
 submodule config:
- eea042d0b9c005d2549a71349e5f28b02c81af75 docs/boilerplate (heads/main)
+ eea042d0b9c005d2549a71349e5f28b02c81af75 docs/boilerplate (remotes/origin/cdk-13-geea042d)
 -->
