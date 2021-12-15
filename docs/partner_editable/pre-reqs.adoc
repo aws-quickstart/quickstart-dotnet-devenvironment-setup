@@ -8,4 +8,4 @@ Verify that your AWS account has the permissions required to create the resource
 
 //Ensure that you have created an Amazon EC2 key pair in the Region you intend to launch the QuickStart and that you have access to the private key material for that key. If you have not yet created a key or do not have access to the private key, see https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#having-ec2-create-your-key-pair[Create a key pair using Amazon EC2^].
 
-//TODO Dave, I commented out the above section since the boilerplate file planning_deployment.adoc. generates an "Amazon EC2 key pairs" section whenever Cloudformation templates include EC2 instances. Do we need to restore this section after all?
+//TODO Dave, I commented out the above section since the boilerplate file planning_deployment.adoc generates an "Amazon EC2 key pairs" section whenever CloudFormation templates include EC2 instances. Do we need to restore this section?
