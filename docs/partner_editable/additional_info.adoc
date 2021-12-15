@@ -4,12 +4,6 @@
 
 This Quick Start creates an EC2 instance that uses a trial license of JetBrains Rider. To use the Quick Start in your production environment, sign up for a Rider license. For details, see link:#_software_licenses[Software licenses] earlier in this guide. 
 
-=== (For new VPCs) Modify the security group 
-
-This Quick Start deploys an EC2 instance into your AWS environment and configures it with a password that has been encrypted with an EC2 key pair. If you deployed into a new VPC, this instance was placed into a public subnet to enable RDP access. In this case, modify the security group to restrict access to networks that you control. For details, see https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/ec2-security-groups.html[Amazon EC2 security groups for Windows instances^].
-
-//TODO Dave, If we deploy into an existing VPC, might we still need to modify the security group?
-
 === (Optional) Set up AWS Instance Scheduler
 
 One advantage of using an EC2 instance to host the development tools is that you can use the AWS Instance Scheduler to https://docs.aws.amazon.com/solutions/latest/instance-scheduler/welcome.html[automate starting and stopping^] of the instance, thereby reducing EC2 usage. For example, you might want to automatically shut down the instance outside of office hours. For details, see https://aws.amazon.com/premiumsupport/knowledge-center/stop-start-instance-scheduler/[How do I use CloudFormation to stop and start my instances at predefined times?^]
