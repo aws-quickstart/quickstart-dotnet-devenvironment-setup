@@ -1,9 +1,8 @@
-// Edit this placeholder text to accurately describe your architecture.
 
 This Quick Start provides two deployment options:
 
-* *Deploy {partner-product-short-name} into a new VPC*. This option builds a new AWS environment consisting of a new VPC, subnets, security groups and other infrastructure components. It then deploys {partner-product-short-name} into this new VPC.
-* *Deploy {partner-product-short-name} into an existing VPC*. This option provisions {partner-product-short-name} in your existing AWS infrastructure.
+* *Deploy into a new VPC*. This option builds a new AWS environment consisting of a new VPC, public subnet, security group, and other infrastructure components. It then deploys software into this environment.
+* *Deploy into an existing VPC*. This option deploys software into your existing AWS VPC and subnet.
 
-The Quick Start provides a template that will, by default, deploy a new VPC. By selecting an existing VPC and subnet IDs, this template will deploy into the selected VPC and subnet.
+The Quick Start provides one template. By default, the template deploys a new VPC. If you fill in IDs for an existing VPC and subnet, the template deploys into that VPC and subnet.
 
