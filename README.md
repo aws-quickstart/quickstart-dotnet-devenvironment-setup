@@ -1,5 +1,5 @@
 
-## quickstart-dotnet-devenvironment-setup—Quick Start
+## .NET Development Environment on the AWS Cloud—Quick Start
 
 For architectural details, step-by-step instructions, and customization options, see the [deployment guide](https://aws-quickstart.github.io/quickstart-dotnet-devenvironment-setup/).
 
