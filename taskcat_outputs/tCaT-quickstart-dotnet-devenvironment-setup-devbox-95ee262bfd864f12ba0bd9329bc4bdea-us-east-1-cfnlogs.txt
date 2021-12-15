@@ -1,0 +1,94 @@
+-----------------------------------------------------------------------------
+Region: us-east-1
+StackName: tCaT-quickstart-dotnet-devenvironment-setup-devbox-95ee262bfd864f12ba0bd9329bc4bdea
+*****************************************************************************
+ResourceStatusReason:  
+The following resource(s) failed to create: [PAWaitCondition, InstanceWaitCondition,
+PSWaitCondition, A2CWaitCondition, SCTWaitCondition].
+*****************************************************************************
+*****************************************************************************
+Events:  
+TimeStamp                         ResourceStatus      ResourceType                              LogicalResourceId                                                                    ResourceStatusReason
+--------------------------------  ------------------  ----------------------------------------  -----------------------------------------------------------------------------------  ------------------------------------------------------------------------------------------------------------------------------------------
+2021-12-14 22:53:55.896000+00:00  CREATE_FAILED       AWS::CloudFormation::Stack                tCaT-quickstart-dotnet-devenvironment-setup-devbox-95ee262bfd864f12ba0bd9329bc4bdea  The following resource(s) failed to create: [PAWaitCondition, InstanceWaitCondition, PSWaitCondition, A2CWaitCondition, SCTWaitCondition].
+2021-12-14 22:53:54.134000+00:00  CREATE_FAILED       AWS::CloudFormation::WaitCondition        PSWaitCondition                                                                      WaitCondition timed out. Received 0 conditions when expecting 1
+2021-12-14 22:53:50.291000+00:00  CREATE_FAILED       AWS::CloudFormation::WaitCondition        PAWaitCondition                                                                      WaitCondition timed out. Received 0 conditions when expecting 1
+2021-12-14 22:53:46.910000+00:00  CREATE_FAILED       AWS::CloudFormation::WaitCondition        A2CWaitCondition                                                                     WaitCondition timed out. Received 0 conditions when expecting 1
+2021-12-14 22:53:43.545000+00:00  CREATE_FAILED       AWS::CloudFormation::WaitCondition        SCTWaitCondition                                                                     WaitCondition timed out. Received 0 conditions when expecting 1
+2021-12-14 22:18:19.643000+00:00  CREATE_FAILED       AWS::CloudFormation::WaitCondition        InstanceWaitCondition                                                                WaitCondition received failed message: 'null' for uniqueId: 79b00863-0d0f-41db-90d5-e72eedbb4443
+2021-12-14 22:17:16.539000+00:00  CREATE_COMPLETE     AWS::CloudFormation::WaitCondition        VSCodeWaitCondition
+2021-12-14 22:16:16.059000+00:00  CREATE_COMPLETE     AWS::CloudFormation::WaitCondition        RiderWaitCondition
+2021-12-14 21:54:43.523000+00:00  CREATE_COMPLETE     AWS::EC2::Instance                        VSInstance
+2021-12-14 21:54:35.559000+00:00  CREATE_IN_PROGRESS  AWS::EC2::Instance                        VSInstance                                                                           Resource creation Initiated
+2021-12-14 21:54:33.007000+00:00  CREATE_IN_PROGRESS  AWS::EC2::Instance                        VSInstance
+2021-12-14 21:54:28.736000+00:00  CREATE_COMPLETE     AWS::IAM::InstanceProfile                 VSInstanceProfile
+2021-12-14 21:53:05.062000+00:00  CREATE_COMPLETE     AWS::EC2::Route                           InternetRoute
+2021-12-14 21:52:52.228000+00:00  CREATE_COMPLETE     AWS::EC2::SubnetRouteTableAssociation     PublicRouteAssociation
+2021-12-14 21:52:51.755000+00:00  CREATE_IN_PROGRESS  AWS::EC2::SubnetRouteTableAssociation     PublicRouteAssociation                                                               Resource creation Initiated
+2021-12-14 21:52:49.596000+00:00  CREATE_IN_PROGRESS  AWS::EC2::Route                           InternetRoute                                                                        Resource creation Initiated
+2021-12-14 21:52:48.975000+00:00  CREATE_IN_PROGRESS  AWS::EC2::Route                           InternetRoute
+2021-12-14 21:52:48.884000+00:00  CREATE_IN_PROGRESS  AWS::EC2::SubnetRouteTableAssociation     PublicRouteAssociation
+2021-12-14 21:52:46.579000+00:00  CREATE_COMPLETE     AWS::EC2::Subnet                          PublicSubnet
+2021-12-14 21:52:46.421000+00:00  CREATE_COMPLETE     AWS::EC2::VPCGatewayAttachment            InternetGWAttachment
+2021-12-14 21:52:43.157000+00:00  CREATE_COMPLETE     AWS::EC2::RouteTable                      InternetRouteTable
+2021-12-14 21:52:36.119000+00:00  CREATE_COMPLETE     AWS::EC2::SecurityGroup                   RDPAccess
+2021-12-14 21:52:34.517000+00:00  CREATE_IN_PROGRESS  AWS::EC2::SecurityGroup                   RDPAccess                                                                            Resource creation Initiated
+2021-12-14 21:52:31.721000+00:00  CREATE_IN_PROGRESS  AWS::EC2::RouteTable                      InternetRouteTable                                                                   Resource creation Initiated
+2021-12-14 21:52:30.916000+00:00  CREATE_IN_PROGRESS  AWS::EC2::VPCGatewayAttachment            InternetGWAttachment                                                                 Resource creation Initiated
+2021-12-14 21:52:30.417000+00:00  CREATE_IN_PROGRESS  AWS::EC2::VPCGatewayAttachment            InternetGWAttachment
+2021-12-14 21:52:30.084000+00:00  CREATE_IN_PROGRESS  AWS::EC2::Subnet                          PublicSubnet                                                                         Resource creation Initiated
+2021-12-14 21:52:29.468000+00:00  CREATE_IN_PROGRESS  AWS::EC2::Subnet                          PublicSubnet
+2021-12-14 21:52:29.366000+00:00  CREATE_IN_PROGRESS  AWS::EC2::RouteTable                      InternetRouteTable
+2021-12-14 21:52:29.144000+00:00  CREATE_IN_PROGRESS  AWS::EC2::SecurityGroup                   RDPAccess
+2021-12-14 21:52:28.171000+00:00  CREATE_IN_PROGRESS  AWS::IAM::InstanceProfile                 VSInstanceProfile                                                                    Resource creation Initiated
+2021-12-14 21:52:27.840000+00:00  CREATE_COMPLETE     AWS::EC2::InternetGateway                 InternetGW
+2021-12-14 21:52:27.731000+00:00  CREATE_IN_PROGRESS  AWS::IAM::InstanceProfile                 VSInstanceProfile
+2021-12-14 21:52:27.056000+00:00  CREATE_COMPLETE     AWS::EC2::VPC                             VPC
+2021-12-14 21:52:24.644000+00:00  CREATE_COMPLETE     AWS::IAM::Role                            VSInstanceRole
+2021-12-14 21:52:13.689000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::WaitCondition        PSWaitCondition                                                                      Resource creation Initiated
+2021-12-14 21:52:13.389000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::WaitCondition        PSWaitCondition
+2021-12-14 21:52:13.281000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::WaitCondition        InstanceWaitCondition                                                                Resource creation Initiated
+2021-12-14 21:52:13.124000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::WaitCondition        PAWaitCondition                                                                      Resource creation Initiated
+2021-12-14 21:52:13.083000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::WaitCondition        A2CWaitCondition                                                                     Resource creation Initiated
+2021-12-14 21:52:12.919000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::WaitCondition        InstanceWaitCondition
+2021-12-14 21:52:12.879000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::WaitCondition        PAWaitCondition
+2021-12-14 21:52:12.659000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::WaitCondition        A2CWaitCondition
+2021-12-14 21:52:12.322000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::WaitCondition        RiderWaitCondition                                                                   Resource creation Initiated
+2021-12-14 21:52:12.218000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::WaitCondition        VSCodeWaitCondition                                                                  Resource creation Initiated
+2021-12-14 21:52:12.017000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::WaitCondition        RiderWaitCondition
+2021-12-14 21:52:12.010000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::WaitCondition        SCTWaitCondition                                                                     Resource creation Initiated
+2021-12-14 21:52:11.939000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::WaitCondition        VSCodeWaitCondition
+2021-12-14 21:52:11.772000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::WaitCondition        SCTWaitCondition
+2021-12-14 21:52:11.500000+00:00  CREATE_IN_PROGRESS  AWS::EC2::InternetGateway                 InternetGW                                                                           Resource creation Initiated
+2021-12-14 21:52:10.366000+00:00  CREATE_COMPLETE     AWS::CloudFormation::WaitConditionHandle  PAWaitHandle
+2021-12-14 21:52:10.223000+00:00  CREATE_IN_PROGRESS  AWS::IAM::Role                            VSInstanceRole                                                                       Resource creation Initiated
+2021-12-14 21:52:09.983000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::WaitConditionHandle  PAWaitHandle                                                                         Resource creation Initiated
+2021-12-14 21:52:09.851000+00:00  CREATE_COMPLETE     AWS::CloudFormation::WaitConditionHandle  VSInstanceWaitHandle
+2021-12-14 21:52:09.751000+00:00  CREATE_IN_PROGRESS  AWS::EC2::VPC                             VPC                                                                                  Resource creation Initiated
+2021-12-14 21:52:09.711000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::WaitConditionHandle  VSInstanceWaitHandle                                                                 Resource creation Initiated
+2021-12-14 21:52:09.687000+00:00  CREATE_COMPLETE     AWS::CloudFormation::WaitConditionHandle  A2CWaitHandle
+2021-12-14 21:52:09.662000+00:00  CREATE_COMPLETE     AWS::CloudFormation::WaitConditionHandle  RiderWaitHandle
+2021-12-14 21:52:09.615000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::WaitConditionHandle  PAWaitHandle
+2021-12-14 21:52:09.595000+00:00  CREATE_IN_PROGRESS  AWS::IAM::Role                            VSInstanceRole
+2021-12-14 21:52:09.534000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::WaitConditionHandle  A2CWaitHandle                                                                        Resource creation Initiated
+2021-12-14 21:52:09.503000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::WaitConditionHandle  RiderWaitHandle                                                                      Resource creation Initiated
+2021-12-14 21:52:09.501000+00:00  CREATE_COMPLETE     AWS::CloudFormation::WaitConditionHandle  PowershellWaitHandle
+2021-12-14 21:52:09.394000+00:00  CREATE_COMPLETE     AWS::CloudFormation::WaitConditionHandle  SCTWaitHandle
+2021-12-14 21:52:09.332000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::WaitConditionHandle  PowershellWaitHandle                                                                 Resource creation Initiated
+2021-12-14 21:52:09.319000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::WaitConditionHandle  VSInstanceWaitHandle
+2021-12-14 21:52:09.305000+00:00  CREATE_COMPLETE     AWS::CloudFormation::WaitConditionHandle  VSCodeWaitHandle
+2021-12-14 21:52:09.230000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::WaitConditionHandle  SCTWaitHandle                                                                        Resource creation Initiated
+2021-12-14 21:52:09.202000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::WaitConditionHandle  A2CWaitHandle
+2021-12-14 21:52:09.165000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::WaitConditionHandle  VSCodeWaitHandle                                                                     Resource creation Initiated
+2021-12-14 21:52:09.108000+00:00  CREATE_IN_PROGRESS  AWS::EC2::VPC                             VPC
+2021-12-14 21:52:08.981000+00:00  CREATE_IN_PROGRESS  AWS::EC2::InternetGateway                 InternetGW
+2021-12-14 21:52:08.979000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::WaitConditionHandle  PowershellWaitHandle
+2021-12-14 21:52:08.933000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::WaitConditionHandle  RiderWaitHandle
+2021-12-14 21:52:08.869000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::WaitConditionHandle  SCTWaitHandle
+2021-12-14 21:52:08.822000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::WaitConditionHandle  VSCodeWaitHandle
+2021-12-14 21:52:03.665000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::Stack                tCaT-quickstart-dotnet-devenvironment-setup-devbox-95ee262bfd864f12ba0bd9329bc4bdea  User Initiated
+*****************************************************************************
+-----------------------------------------------------------------------------
+Tested on: Tuesday, 14. December 2021 04:54PM
+-----------------------------------------------------------------------------
+
