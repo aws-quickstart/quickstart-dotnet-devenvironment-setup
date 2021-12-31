@@ -6,4 +6,4 @@ This Quick Start creates an EC2 instance that uses a trial license of JetBrains 
 
 === (Optional) Set up AWS Instance Scheduler
 
-One advantage of using an EC2 instance to host the development tools is that you can use the AWS Instance Scheduler to https://docs.aws.amazon.com/solutions/latest/instance-scheduler/welcome.html[automate starting and stopping^] of the instance, thereby reducing EC2 usage. For example, you might want to automatically shut down the instance outside of office hours. For details, see https://aws.amazon.com/premiumsupport/knowledge-center/stop-start-instance-scheduler/[How do I use CloudFormation to stop and start my instances at predefined times?^]
+To reduce EC2 usage, set up AWS Instance Scheduler to https://docs.aws.amazon.com/solutions/latest/instance-scheduler/welcome.html[automate starting and stopping^] the instance. For example, you can automatically shut down the instance outside of office hours. For details, see https://aws.amazon.com/premiumsupport/knowledge-center/stop-start-instance-scheduler/[How do I use CloudFormation to stop and start my instances at predefined times?^]
