@@ -3,12 +3,18 @@
 Deploying this Quick Start with default parameter values and an EC2 key pair builds the following environment in the AWS Cloud.
 
 [#architecture1]
-.Quick Start architecture for {partner-product-short-name} on AWS
-image::../images/dot-net-devenvironment-architecture_diagram.png[Architecture, 50%]
+.Architecture for the {partner-product-short-name} Quick Start on AWS
+image::../images/dot-net-devenvironment-architecture_diagram.png[Architecture, 40%]
 
 As shown in <<architecture1>>, the Quick Start sets up the following:
 
 * A virtual private cloud (VPC) configured with a public subnet to provide you with your own virtual network on AWS.*
-* In the public subnet, an EC2 Windows instance configured with the following commonly used development tools for .NET applications: Git for Windows, Visual Studio Code, JetBrains Rider, the Chocolatey package manager, AWS Command Line Interface (AWS CLI), and PowerShell Core.
+* In the public subnet, an EC2 Windows instance configured with the .NET SDK and the following tools that are commonly used to develop .NET applications: 
+** Git for Windows
+** Visual Studio Code
+** JetBrains Rider
+** The Chocolatey package manager
+** AWS Command Line Interface (AWS CLI)
+** PowerShell Core.
 
-[.small]#* When you launch the Quick Start into an existing VPC (by providing IDs for the VPC and subnet), the template skips the creation of the VPC and subnet.#
+[.small]#* If you specify an existing VPC and subnet, the template skips the creation of those components.#
