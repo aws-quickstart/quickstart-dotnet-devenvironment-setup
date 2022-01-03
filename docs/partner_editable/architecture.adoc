@@ -15,6 +15,6 @@ As shown in <<architecture1>>, the Quick Start sets up the following:
 ** JetBrains Rider
 ** The Chocolatey package manager
 ** AWS Command Line Interface (AWS CLI)
-** PowerShell Core.
+** PowerShell Core
 
 [.small]#* If you specify an existing VPC and subnet, the template skips the creation of those components.#
