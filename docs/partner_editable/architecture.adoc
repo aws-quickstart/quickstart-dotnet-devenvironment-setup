@@ -13,7 +13,7 @@ As shown in <<architecture1>>, the Quick Start sets up the following:
 ** Git for Windows
 ** Visual Studio Code
 ** JetBrains Rider
-** The Chocolatey package manager
+** Chocolatey package manager
 ** AWS Command Line Interface (AWS CLI)
 ** PowerShell Core
 
