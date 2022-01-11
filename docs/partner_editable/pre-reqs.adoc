@@ -1,9 +1,3 @@
-// If no preparation is required, remove this content.
-
 ==== Prepare your AWS account
 
 Verify that your AWS account has the permissions required to create the resources listed in the link:#_resource_quotas[Resource quotas] section of this guide.
-
-==== Prepare for the deployment
-
-Ensure that you have created an Amazon EC2 key pair in the region you intend to launch the QuickStart and that you have access to the private key material for that key. If you have not yet created a key or do not have access to the private key, you can create a new key following the instructions provided in the https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#having-ec2-create-your-key-pair[AWS Documentation].

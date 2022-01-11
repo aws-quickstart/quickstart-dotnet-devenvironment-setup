@@ -1,11 +1,9 @@
-// Add steps as necessary for accessing the software, post-configuration, and testing. Don’t include full usage instructions for your software, but add links to your product documentation for that information.
-//Should any sections not be applicable, remove them
+== Postdeployment steps
 
-== Post-deployment steps
-This Quick Start creates an EC2 instance that uses a trial license of JetBrains Rider. If you determnine that you would like to obtain a license or apply an existing license, you will need to follow the instructions on JetBrains' site for https://www.jetbrains.com/rider/buy[purchasing a license] or https://www.jetbrains.com/help/rider/Register.html[registering an existing license].
+=== (Optional) Sign up for a JetBrains Rider license
 
-== Security
-This Quick Start deploys an EC2 instance into your AWS environment and configures an EC2 instance with a password that has been encrypted with an EC2 key pair. If you select the deployment option that deploys your EC2 instance to a VPC that is created for you, this instance will be placed into a public subnet to enable access via Remote Desktop Protocol. If this option is selected, it is recommended that you take the additional step of modifying the security group to restrict access to only networks you control by following https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/ec2-security-groups.html[these steps].
+This Quick Start creates an EC2 instance that uses a trial license of JetBrains Rider. To use the Quick Start in your production environment, sign up for a Rider license. For details, see link:#_software_licenses[Software licenses] earlier in this guide. 
 
-== Other useful information
-Although this topic is beyond the scope of this Quick Start, one of the advantages of using an EC2 instance to host development tools is the ability to use the https://aws.amazon.com/premiumsupport/knowledge-center/stop-start-instance-scheduler/[AWS Instance Scheduler solution] to automatically shut down the instance outside of office hours.
+=== (Optional) Set up AWS Instance Scheduler
+
+To reduce EC2 usage, set up AWS Instance Scheduler to https://docs.aws.amazon.com/solutions/latest/instance-scheduler/welcome.html[automate starting and stopping^] the instance. For example, you can automatically shut down the instance outside of office hours. For details, see https://aws.amazon.com/premiumsupport/knowledge-center/stop-start-instance-scheduler/[How do I use CloudFormation to stop and start my instances at predefined times?^]

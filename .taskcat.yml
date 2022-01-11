@@ -20,7 +20,11 @@ project:
     - us-west-2
   # reporting: true
 tests:
-  default:
+  devbox:
+    parameters:
+      KeyName: $[taskcat_getkeypair]
+      QSS3BucketName: $[taskcat_autobucket]
+      QSS3BucketRegion: $[taskcat_current_region]
     template: templates/dev-box.template.yaml
-    # regions:
-    # - us-east-1
+    regions:
+    - us-east-1

@@ -1,5 +1,1 @@
-// Replace the content in <>
-// Briefly describe the software. Use consistent and clear branding. 
-// Include the benefits of using the software on AWS, and provide details on usage scenarios.
-
-This Quick Start uses AWS CloudFormation and the ability to automatically install software as part of the Amazon Elastic Compute Cloud (EC2) launch process to configure a development machine. This solution eliminates the many manual steps necessary to install the .NET SDK and development tools needed to write .NET code. This Quick Start can be used as a reference architecture to provide a standardized development environment.
+This Quick Start installs the .NET software development kit (SDK) and other development tools you need to write .NET code. An AWS CloudFormation template automatically deploys the software into an Amazon Elastic Compute Cloud (Amazon EC2) Windows instance, eliminating many manual steps and standardizing the AWS Cloud environment.
