@@ -26,6 +26,8 @@ Parameters:
     Description: Name of the key pair to be used to connect to your EC2 instance by using SSH.
     Type: AWS::EC2::KeyPair::KeyName
     AllowedPattern: \S+
+    MinLength: 1
+    ConstraintDescription: Please provide the name of an EC2 keypair that has been registered in your account.
   InstanceType:
     AllowedValues:
       - r4.xlarge
