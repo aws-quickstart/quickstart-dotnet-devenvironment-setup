@@ -26,6 +26,8 @@ Parameters:
     Description: Name of the key pair to be used to connect to your EC2 instance by using SSH.
     Type: AWS::EC2::KeyPair::KeyName
     AllowedPattern: \S+
+    MinLength: 1
+    ConstraintDescription: Please provide the name of an EC2 keypair that has been registered in your account.
   InstanceType:
     AllowedValues:
       - r4.xlarge
@@ -38,7 +40,7 @@ Parameters:
       - m5.large
       - m5.2xlarge
       - m5.4xlarge
-    Default: r5.large
+    Default: m5.large
     Description: Type of EC2 instance to use for the development-tools instance.
     Type: String
   QSS3BucketName:
@@ -278,11 +280,22 @@ Resources:
               choco install microsoft-edge
               # Corretto JDK
               choco install correttojdk
+              Write-Verbose "Installing .NET 3.1 SDK"
+              choco install dotnetcore-3.1-sdk
+              Write-Verbose "Installing hosting support for ASP.NET 3.1"
+              choco install dotnetcore-3.1-windowshosting
+              Write-Verbose "Installing .NET 5.0 SDK"
+              choco install dotnet-5.0-sdk
               Write-Verbose "Installing hosting support for ASP.NET 5.0"
               choco install dotnet-5.0-windowshosting
-              Write-Verbose "Installing .NET 4.7.1/4.7.2 support."
+              Write-Verbose "Installing .NET 6.0 SDK"
+              choco install dotnet-6.0-sdk
+              Write-Verbose "Installing hosting support for ASP.NET 6.0"
+              choco install dotnet-6.0-windowshosting
+              Write-Verbose "Installing .NET 4.7.1/4.7.2/4.8 support."
               choco install netfx-4.7.1-devpack
               choco install netfx-4.7.2-devpack
+              choco install netfx-4.8-devpack
               # JetBrains Rider
               Write-Verbose "Installing JetBrains Rider"
               choco install jetbrains-rider
@@ -295,6 +308,9 @@ Resources:
               choco install vscode
               # Signal VSCode Installation Completed
               Invoke-WebRequest -Method PUT -Body $( ConvertTo-Json @{ "Status" = "SUCCESS"; "UniqueId"=[System.Guid]::NewGuid(); "Data"="VSCode Installed." } ) -Uri "${ VSCodeWaitHandle }"
+              # Remove legacy Powershell tools
+              $legacyToolsGuid = (Get-ChildItem hklm:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\|Where-Object -FilterScript {$_.GetValue('DisplayName') -eq 'AWS Tools for Windows2'}).PSChildName
+              if ($legacyToolsGuid -ne $null) { Start-Process -FilePath msiexec.exe -ArgumentList "/q","/I$legacyToolsGuid","REMOVE=AWSPowerShell","/l*v","C:\AWS\LegacyPowershellRemoval.log" }
               # PowerShell Core
               Write-Verbose "Installing latest version of PowerShell Core"
               choco upgrade powershell-core
@@ -308,6 +324,8 @@ Resources:
               $Shortcut.Save()
               Write-Verbose "Refreshing environment variables"
               refreshenv
+              # Install .NET Deployment Tool
+              Start-Process -Wait -FilePath "C:\Program Files\dotnet\dotnet.exe" -ArgumentList "tool","install","--global","aws.deploy.cli"
               # Helper scripts
               Write-Verbose "Downloading helper scripts"
               if (-not $(Test-Path C:\AWS)) { mkdir C:\AWS }

@@ -16,5 +16,8 @@ As shown in <<architecture1>>, the Quick Start sets up the following:
 ** Chocolatey package manager
 ** AWS Command Line Interface (AWS CLI)
 ** PowerShell Core
+** Porting Assistant for .NET
+** AWS .NET deployment tool for the .NET CLI
+** AWS App2Container
 
 [.small]#* If you specify an existing VPC and subnet, the template skips the creation of those components.#
