@@ -14,7 +14,7 @@ try {
   $refreshTask = Unregister-ScheduledTask -TaskName "Refresh AWS Credentials" -Confirm:$false
 } catch {
 }
-schtasks.exe /create /tn "Refresh AWS Credentials" /sc ONEVENT /ec "Microsoft-Windows-TerminalServices-LocalSessionManager/Operational" /MO "*[System[Provider[@Name='Microsoft-Windows-TerminalServices-LocalSessionManager'] and EventID=25]]" /tr "powershell -WindowStyle Hidden -file C:\AWS\UpdateProfileCredentials.ps1"
+schtasks.exe /create /tn "Refresh AWS Credentials" /sc ONEVENT /ec "Microsoft-Windows-TerminalServices-LocalSessionManager/Operational" /MO "*[System[Provider[@Name='Microsoft-Windows-TerminalServices-LocalSessionManager'] and EventID=25]]" /tr "pwsh -WindowStyle Hidden -file C:\AWS\UpdateProfileCredentials.ps1"
 $task = Get-ScheduledTask -TaskPath "\" -TaskName "Refresh AWS Credentials"
 $triggers = $($( Get-ScheduledTask -TaskPath "\" -TaskName "Refresh AWS Credentials" ).Triggers + @( $(New-ScheduledTaskTrigger -AtLogOn)))
 Set-ScheduledTask -TaskPath "\" -TaskName "Refresh AWS Credentials" -Trigger $triggers
