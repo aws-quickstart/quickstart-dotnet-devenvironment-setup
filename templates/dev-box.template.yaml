@@ -369,18 +369,11 @@ Resources:
               $task = Get-ScheduledTask -TaskPath "\" -TaskName "Refresh AWS Credentials"
               $triggers = $($( Get-ScheduledTask -TaskPath "\" -TaskName "Refresh AWS Credentials" ).Triggers + @( $(New-ScheduledTaskTrigger -AtLogOn)))
               Set-ScheduledTask -TaskPath "\" -TaskName "Refresh AWS Credentials" -Trigger $triggers
-              # Remove legacy Powershell tools
-              Write-Output "Checking for legacy Powershell tools"
-              $legacyToolsGuid = (Get-ChildItem hklm:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\|Where-Object -FilterScript {$_.GetValue('DisplayName') -eq 'AWS Tools for Windows'}).PSChildName
-              Write-Output "Removing legacy Powershell tools"
-              if ($legacyToolsGuid -ne $null) {
-                msiexec.exe /qn /I$legacyToolsGuid REMOVE=AWSPowerShell ALLUSERS=1 /l*v C:\AWS\LegacyPowershellRemoval.log 
-              }
               # We need to restart after installing IIS
-              Write-Output "Signaling successful completion to VSInstanceWaitHandle"
-              Invoke-WebRequest -Method PUT -Body $( ConvertTo-Json @{ "Status" = "SUCCESS"; "UniqueId"=[System.Guid]::NewGuid(); "Data"="Instance initialized successfully." } ) -Uri "${ VSInstanceWaitHandle }"
               Write-Output "Completed! Restarting computer in 120 seconds..."
               shutdown /r /t 120
+              Write-Output "Signaling successful completion to VSInstanceWaitHandle"
+              Invoke-WebRequest -Method PUT -Body $( ConvertTo-Json @{ "Status" = "SUCCESS"; "UniqueId"=[System.Guid]::NewGuid(); "Data"="Instance initialized successfully." } ) -Uri "${ VSInstanceWaitHandle }"
             }
             catch {
               $itemName = $_.Exception.ItemName;
