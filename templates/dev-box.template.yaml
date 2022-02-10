@@ -44,11 +44,11 @@ Parameters:
     Description: Type of EC2 instance to use for the development-tools instance.
     Type: String
   QSS3BucketName:
-    AllowedPattern: '^[0-9a-zA-Z]+([0-9a-zA-Z-]*[0-9a-zA-Z])*$'
+    AllowedPattern: '^[0-9a-zA-Z]+([0-9a-zA-Z-\.]*[0-9a-zA-Z])*$'
     ConstraintDescription:
       The Quick Start bucket name can include numbers, lowercase
-      letters, uppercase letters, and hyphens (-). It cannot start or end with a 
-      hyphen (-).
+      letters, uppercase letters, periods, and hyphens (-). It
+      cannot start or end with a hyphen (-).
     Default: aws-quickstart
     Description:
       'Name of the S3 bucket for your copy of the Quick Start assets. 
@@ -262,59 +262,64 @@ Resources:
               $logPath = Join-Path "C:\ProgramData\Amazon\EC2-Windows\Launch\Log" UserDataTranscript.log
               Start-Transcript -Path $logPath -IncludeInvocationHeader
               Set-ExecutionPolicy Bypass -Scope Process -Force;
-              Write-Verbose "Setting default region"
+              Write-Output "WaitHandles:"
+              Write-Output "RiderWaitHandle: ${ RiderWaitHandle }"
+              Write-Output "VSCodeWaitHandle: ${ VSCodeWaitHandle }"
+              Write-Output "PowershellWaitHandle: ${ PowershellWaitHandle }"
+              Write-Output "PAWaitHandle: ${ PAWaitHandle }"
+              Write-Output "A2CWaitHandle: ${ A2CWaitHandle }"
+              Write-Output "SCTWaitHandle: ${ SCTWaitHandle }"
+              Write-Output "VSInstanceWaitHandle: ${ VSInstanceWaitHandle }"
+              Write-Output "Setting default region"
               if (-not $(Test-Path C:\Users\Administrator\.aws)) { mkdir C:\Users\Administrator\.aws }
               $configPath = Join-Path C:\Users\Administrator\.aws config
               Add-Content $configPath "[default]"
               Add-Content $configPath "region = ${AWS::Region}"
               Add-Content $configPath "output = json"
-              Write-Verbose "Installing Chocolatey"
+              Write-Output "Installing Chocolatey"
               iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
               Import-Module "$env:ChocolateyInstall\helpers\chocolateyInstaller.psm1"
               choco feature enable -n allowGlobalConfirmation
               # Git
-              Write-Verbose "Installing Git"
+              Write-Output "Installing Git"
               choco install git
               # Microsoft Edge
-              Write-Verbose "Installing Microsoft Edge Browser"
+              Write-Output "Installing Microsoft Edge Browser"
               choco install microsoft-edge
               # Corretto JDK
               choco install correttojdk
-              Write-Verbose "Installing .NET 3.1 SDK"
+              Write-Output "Installing .NET 3.1 SDK"
               choco install dotnetcore-3.1-sdk
-              Write-Verbose "Installing hosting support for ASP.NET 3.1"
+              Write-Output "Installing hosting support for ASP.NET 3.1"
               choco install dotnetcore-3.1-windowshosting
-              Write-Verbose "Installing .NET 5.0 SDK"
+              Write-Output "Installing .NET 5.0 SDK"
               choco install dotnet-5.0-sdk
-              Write-Verbose "Installing hosting support for ASP.NET 5.0"
+              Write-Output "Installing hosting support for ASP.NET 5.0"
               choco install dotnet-5.0-windowshosting
-              Write-Verbose "Installing .NET 6.0 SDK"
+              Write-Output "Installing .NET 6.0 SDK"
               choco install dotnet-6.0-sdk
-              Write-Verbose "Installing hosting support for ASP.NET 6.0"
+              Write-Output "Installing hosting support for ASP.NET 6.0"
               choco install dotnet-6.0-windowshosting
-              Write-Verbose "Installing .NET 4.7.1/4.7.2/4.8 support."
+              Write-Output "Installing .NET 4.7.1/4.7.2/4.8 support."
               choco install netfx-4.7.1-devpack
               choco install netfx-4.7.2-devpack
               choco install netfx-4.8-devpack
               # JetBrains Rider
-              Write-Verbose "Installing JetBrains Rider"
+              Write-Output "Installing JetBrains Rider"
               choco install jetbrains-rider
               # Signal Rider Installation Completed
               Invoke-WebRequest -Method PUT -Body $( ConvertTo-Json @{ "Status" = "SUCCESS"; "UniqueId"=[System.Guid]::NewGuid(); "Data"="Rider Installed." } ) -Uri "${ RiderWaitHandle }"
               # AWS CLI
               choco install awscli
               # VS Code
-              Write-Verbose "Installing Visual Studio Code"
+              Write-Output "Installing Visual Studio Code"
               choco install vscode
               # Signal VSCode Installation Completed
               Invoke-WebRequest -Method PUT -Body $( ConvertTo-Json @{ "Status" = "SUCCESS"; "UniqueId"=[System.Guid]::NewGuid(); "Data"="VSCode Installed." } ) -Uri "${ VSCodeWaitHandle }"
-              # Remove legacy Powershell tools
-              $legacyToolsGuid = (Get-ChildItem hklm:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\|Where-Object -FilterScript {$_.GetValue('DisplayName') -eq 'AWS Tools for Windows'}).PSChildName
-              if ($legacyToolsGuid -ne $null) { Start-Process -FilePath msiexec.exe -ArgumentList "/q","/I$legacyToolsGuid","REMOVE=AWSPowerShell","/l*v","C:\AWS\LegacyPowershellRemoval.log" }
               # PowerShell Core
-              Write-Verbose "Installing latest version of PowerShell Core"
+              Write-Output "Installing latest version of PowerShell Core"
               choco upgrade powershell-core
-              Write-Verbose "Creating PowerShell 7 shortcut"
+              Write-Output "Creating PowerShell 7 shortcut"
               $TargetFile = "`"${!env:ProgramFiles}\PowerShell\7\pwsh.exe`" -WorkingDirectory ~"
               $ShortcutFile = "$env:Public\Desktop\PowerShell 7.lnk"
               $WScriptShell = New-Object -ComObject WScript.Shell
@@ -322,12 +327,12 @@ Resources:
               $Shortcut.TargetPath = "${!env:ProgramFiles}\PowerShell\7\pwsh.exe"
               $Shortcut.Description = "PowerShell 7"
               $Shortcut.Save()
-              Write-Verbose "Refreshing environment variables"
+              Write-Output "Refreshing environment variables"
               refreshenv
               # Install .NET Deployment Tool
               Start-Process -Wait -FilePath "C:\Program Files\dotnet\dotnet.exe" -ArgumentList "tool","install","--global","aws.deploy.cli"
               # Helper scripts
-              Write-Verbose "Downloading helper scripts"
+              Write-Output "Downloading helper scripts"
               if (-not $(Test-Path C:\AWS)) { mkdir C:\AWS }
               Read-S3Object -Region ${QSS3BucketRegion} -BucketName ${QSS3BucketName} -Key ${QSS3KeyPrefix}docs/images/Background-Dark.bmp -File C:\Temp\Background-Dark.bmp
               # Install IIS & ASP.NET Support
@@ -338,7 +343,7 @@ Resources:
               reg.exe add "HKU\.DEFAULT\Control Panel" /v Wallpaper /t REG_SZ /d "C:\Temp\Background-Dark.bmp"
               Read-S3Object -Region ${QSS3BucketRegion} -BucketName ${QSS3BucketName} -Key ${QSS3KeyPrefix}scripts/UpdateProfileCredentials.ps1 -File C:\AWS\UpdateProfileCredentials.ps1
               Read-S3Object -Region ${QSS3BucketRegion} -BucketName ${QSS3BucketName} -Key ${QSS3KeyPrefix}scripts/SetupPwsh.ps1 -File C:\AWS\SetupPwsh.ps1
-              Write-Verbose "Installing AWS PowerShell Modules"
+              Write-Output "Installing AWS PowerShell Modules"
               pwsh -File C:\AWS\SetupPwsh.ps1
               Invoke-WebRequest -Method PUT -Body $( ConvertTo-Json @{ "Status" = "SUCCESS"; "UniqueId"=[System.Guid]::NewGuid(); "Data"="Downloaded PowerShell scripts." } ) -Uri "${ PowershellWaitHandle }"
               # Install AWS Porting Assistant for .NET
@@ -359,20 +364,21 @@ Resources:
               # Signal SCT Installation Completed
               Invoke-WebRequest -Method PUT -Body $( ConvertTo-Json @{ "Status" = "SUCCESS"; "UniqueId"=[System.Guid]::NewGuid(); "Data"="VSCode Installed." } ) -Uri "${ SCTWaitHandle }"
               # AWS Credentials
-              Write-Verbose "Creating task to update credentials from EC2 profile"
-              schtasks.exe /create /tn "Refresh AWS Credentials" /sc ONEVENT /ec "Microsoft-Windows-TerminalServices-LocalSessionManager/Operational" /MO "*[System[Provider[@Name='Microsoft-Windows-TerminalServices-LocalSessionManager'] and EventID=25]]" /tr "powershell -WindowStyle Hidden -file C:\AWS\UpdateProfileCredentials.ps1"
+              Write-Output "Creating task to update credentials from EC2 profile"
+              schtasks.exe /create /tn "Refresh AWS Credentials" /sc ONEVENT /ec "Microsoft-Windows-TerminalServices-LocalSessionManager/Operational" /MO "*[System[Provider[@Name='Microsoft-Windows-TerminalServices-LocalSessionManager'] and EventID=25]]" /tr "pwsh -WindowStyle Hidden -file C:\AWS\UpdateProfileCredentials.ps1"
               $task = Get-ScheduledTask -TaskPath "\" -TaskName "Refresh AWS Credentials"
               $triggers = $($( Get-ScheduledTask -TaskPath "\" -TaskName "Refresh AWS Credentials" ).Triggers + @( $(New-ScheduledTaskTrigger -AtLogOn)))
               Set-ScheduledTask -TaskPath "\" -TaskName "Refresh AWS Credentials" -Trigger $triggers
-              Write-Verbose "Signaling completion to WaitHandle"
-              Invoke-WebRequest -Method PUT -Body $( ConvertTo-Json @{ "Status" = "SUCCESS"; "UniqueId"=[System.Guid]::NewGuid(); "Data"="Instance initialized successfully." } ) -Uri "${ VSInstanceWaitHandle }"
               # We need to restart after installing IIS
-              Restart-Computer
+              Write-Output "Completed! Restarting computer in 120 seconds..."
+              shutdown /r /t 120
+              Write-Output "Signaling successful completion to VSInstanceWaitHandle"
+              Invoke-WebRequest -Method PUT -Body $( ConvertTo-Json @{ "Status" = "SUCCESS"; "UniqueId"=[System.Guid]::NewGuid(); "Data"="Instance initialized successfully." } ) -Uri "${ VSInstanceWaitHandle }"
             }
             catch {
               $itemName = $_.Exception.ItemName;
               $errorMessage = $_.Exception.Message;
-              Write-Host "ERROR: $itemName - $errorMessage"
+              Write-Output "ERROR: $itemName - $errorMessage`nSignaling failure."
               Invoke-WebRequest -Method PUT -Body $( ConvertTo-Json @{ "Status" = "FAILURE"; "UniqueId"=[System.Guid]::NewGuid(); "Data"=$errorMessage } ) -Uri "${ VSInstanceWaitHandle }"
             }
             </powershell>
@@ -402,7 +408,7 @@ Resources:
     Type: AWS::CloudFormation::WaitCondition
     Properties: 
       Handle: !Ref VSInstanceWaitHandle
-      Timeout: '3600'
+      Timeout: '7200'
       Count: 1
 
   PSWaitCondition: 
@@ -430,21 +436,21 @@ Resources:
     Type: AWS::CloudFormation::WaitCondition
     Properties: 
       Handle: !Ref PAWaitHandle
-      Timeout: '3600'
+      Timeout: '4500'
       Count: 1
       
   A2CWaitCondition: 
     Type: AWS::CloudFormation::WaitCondition
     Properties: 
       Handle: !Ref A2CWaitHandle
-      Timeout: '3600'
+      Timeout: '4500'
       Count: 1
       
   SCTWaitCondition: 
     Type: AWS::CloudFormation::WaitCondition
     Properties: 
       Handle: !Ref SCTWaitHandle
-      Timeout: '3600'
+      Timeout: '5400'
       Count: 1
 
 Outputs:
