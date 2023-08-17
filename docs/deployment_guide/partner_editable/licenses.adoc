@@ -1,3 +1,1 @@
-// Include details about any licenses and how to sign up. Provide links as appropriate.
-
-There is no cost to use this Partner Solution, but you will be billed for any AWS services or resources that this Partner Solution deploys. For more information, refer to the https://fwd.aws/rA69w?[AWS Partner Solution General Information Guide^].
+This Partner Solution includes a trial license for JetBrains Rider. If you want to use the Partner Solution in your production environment, sign up for a Rider license. For details, see the https://www.jetbrains.com/rider/buy/[Rider subscription options and pricing^] and the instructions to https://www.jetbrains.com/help/rider/Register.html[register JetBrains Rider^].

@@ -1,3 +1,6 @@
-//Include any predeployment steps here, such as signing up for a Marketplace AMI or making any changes to a partner account. If there are no predeployment steps, leave this file empty.
-
 == Predeployment steps
+
+=== Confirm your AWS account configuration
+
+. Sign in to your AWS account at https://aws.amazon.com with an IAM user role that has the necessary permissions.
+. Ensure that your AWS account is configured correctly.
