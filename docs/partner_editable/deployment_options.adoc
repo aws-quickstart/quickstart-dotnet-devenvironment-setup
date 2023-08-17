@@ -1,7 +1,0 @@
-
-This Quick Start provides two deployment options:
-
-* *Deploy into a new VPC*. This option builds a new AWS environment consisting of a new VPC, public subnet, security group, and other infrastructure components. It then deploys software into this environment.
-* *Deploy into an existing VPC*. This option deploys software into your existing VPC and subnet.
-
-The Quick Start provides one template. In the template, you can configure various parameters. By default, the template deploys a new VPC. To deploy into an existing VPC, you fill in your VPC and subnet IDs. 

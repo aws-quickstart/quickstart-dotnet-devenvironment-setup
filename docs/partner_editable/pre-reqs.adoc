@@ -1,3 +1,0 @@
-==== Prepare your AWS account
-
-Verify that your AWS account has the permissions required to create the resources listed in the link:#_resource_quotas[Resource quotas] section of this guide.
