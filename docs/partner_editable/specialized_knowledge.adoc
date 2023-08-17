@@ -1,6 +1,0 @@
-// Replace the content in <>
-// For example: “familiarity with basic concepts in networking, database operations, and data encryption” or “familiarity with <software>.”
-// Include links if helpful. 
-// You don't need to list AWS services or point to general info about AWS; the boilerplate already covers this.
-
-This Quick Start also assumes familiarity with establishing Remote Desktop Protocol (RDP) connections to EC2 instances. For more information, see https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/connecting_to_windows_instance.html[Connect to your Windows instance^].

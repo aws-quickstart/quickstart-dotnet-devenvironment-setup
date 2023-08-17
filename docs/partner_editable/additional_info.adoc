@@ -1,9 +1,0 @@
-== Postdeployment steps
-
-=== (Optional) Sign up for a JetBrains Rider license
-
-This Quick Start creates an EC2 instance that uses a trial license of JetBrains Rider. To use the Quick Start in your production environment, sign up for a Rider license. For details, see link:#_software_licenses[Software licenses] earlier in this guide. 
-
-=== (Optional) Set up AWS Instance Scheduler
-
-To reduce EC2 usage, set up AWS Instance Scheduler to https://docs.aws.amazon.com/solutions/latest/instance-scheduler/welcome.html[automate starting and stopping^] the instance. For example, you can automatically shut down the instance outside of office hours. For details, see https://aws.amazon.com/premiumsupport/knowledge-center/stop-start-instance-scheduler/[How do I use CloudFormation to stop and start my instances at predefined times?^]

@@ -1,1 +1,0 @@
-This Quick Start includes a trial license for JetBrains Rider. If you want to use the Quick Start in your production environment, sign up for a Rider license. For details, see the https://www.jetbrains.com/rider/buy/[Rider subscription options and pricing^] and the instructions to https://www.jetbrains.com/help/rider/Register.html[register JetBrains Rider^].

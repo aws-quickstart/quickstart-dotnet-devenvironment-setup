@@ -1,1 +1,0 @@
-This Quick Start installs the .NET software development kit (SDK) and other development tools you need to write .NET code. An AWS CloudFormation template automatically deploys the software into an Amazon Elastic Compute Cloud (Amazon EC2) Windows instance, eliminating many manual steps and standardizing the AWS Cloud environment.
